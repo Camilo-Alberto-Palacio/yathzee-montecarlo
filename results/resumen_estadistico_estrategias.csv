@@ -1,0 +1,4 @@
+Estrategia,Partidas Simuladas,Puntaje Medio,Desv. Estándar,Mediana,Mínimo,Máximo,Percentil 25,Percentil 75,Tasa Bono (+35 pts),Subtotal Superior Medio,Subtotal Inferior Medio
+Aleatorio,1000,46.635,19.1595110026812,42.0,12,133,32.0,58.0,0.0%,17.838,28.797
+Heuristico,1000,140.94,36.6367937278176,139.0,57,273,113.0,168.0,1.7%,39.744,100.601
+Montecarlo,1000,207.349,33.32803560003135,204.0,107,330,187.75,224.0,2.1%,44.084,162.53
