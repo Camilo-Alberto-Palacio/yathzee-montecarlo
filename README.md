@@ -1,6 +1,6 @@
 # Simulación Estocástica de Yahtzee con Método Monte Carlo y Ley de los Grandes Números
 
-[![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/Camilo-Alberto-Palacio/Simulacion-Yahtzee-Montecarlo/blob/main/Simulacion_Yahtzee_Montecarlo_Colab.ipynb)
+[![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/Camilo-Alberto-Palacio/yathzee-montecarlo/blob/main/Simulacion_Yahtzee_Montecarlo_Colab.ipynb)
 ![Python Version](https://img.shields.io/badge/Python-3.10%2B-blue.svg)
 ![Tests](https://img.shields.io/badge/Tests-12%2F12%20Passing-brightgreen.svg)
 ![License](https://img.shields.io/badge/License-MIT-green.svg)

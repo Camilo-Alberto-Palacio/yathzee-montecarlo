@@ -12,6 +12,8 @@ env/
 .vscode/
 .idea/
 ~$*.docx
+~*
+*.tmp
 
 # Material de referencia local de clase (conservado en disco, excluido del repo)
 AAA 26 de Octubre.txt
