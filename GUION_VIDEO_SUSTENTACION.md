@@ -6,98 +6,72 @@
 * **Docente Catedrático:** Julian Andres Loaiza Lopez
 * **Duración Total Estimada:** 8 a 10 minutos
 * **Participantes (4 Integrantes):**
-  1. **Adriana Andrea Agudelo Agudelo** (Introducción, Diagnóstico y Metodología USA-MODIFICA-CREA)
-  2. **Camilo Alberto Palacios Turriago** (Fundamentación Matemática: Espacio Muestral, LLN y TLC)
-  3. **Juan Daniel Pulgarin García** (Resultados Cuantitativos: Convergencia, Varianza y Torneo de 3,000 Partidas)
-  4. **Ruben Dario Jaramillo Cervantes** (Reflexión de Desaprendizaje / Aprendizaje Genuino y Conclusiones)
+  1. **Adriana Andrea Agudelo Agudelo** (Diagnóstico Autocrítico y Ciclo USA-MODIFICA-CREA)
+  2. **Camilo Alberto Palacios Turriago** (Combinatoria Exacta $|\Omega|=7,776$, LLN, $\chi^2$ y TLC)
+  3. **Juan Daniel Pulgarin García** (Análisis de las 6 Figuras a 300 DPI y Torneo de 3,000 Partidas)
+  4. **Ruben Dario Jaramillo Cervantes** (Reflexión de Desaprendizaje / Aprendizaje Genuino y Colab en Vivo)
 
 ---
 
-### Escena 1: Apertura, Contexto y Diagnóstico Autocrítico (0:00 – 2:00)
+### Escena 1: Apertura, Diagnóstico Autocrítico y Ciclo USA-MODIFICA-CREA (0:00 – 2:00)
 **Voz / Pantalla:** Adriana Andrea Agudelo Agudelo  
-**Recurso Visual:** Diapositiva de Portada Institucional + Visualización de la Interfaz Tkinter (`interfaz_yahtzee.py`).
+**Recurso Visual:** Portada Institucional + Interfaz `interfaz_yahtzee.py` con ventana modal de Estadísticas Monte Carlo.
 
 > **Adriana:**  
-> "Un cordial saludo al profesor Julian Andres Loaiza y a la comunidad académica. Somos el Grupo 25 de la asignatura Simulación en la IU Digital de Antioquia, integrado por Camilo Palacios, Juan Daniel Pulgarin, Ruben Jaramillo y mi persona, Adriana Agudelo.
+> "Un cordial saludo al profesor Julian Andres Loaiza. Somos el Grupo 25 de Simulación en la IU Digital de Antioquia, conformado por Camilo Palacios, Juan Daniel Pulgarin, Ruben Jaramillo y quien les habla, Adriana Agudelo.
 > 
-> En nuestra primera entrega de este laboratorio alcanzamos una calificación de 52 sobre 100. El dictamen docente reconoció la solidez en la programación del juego de Yahtzee y el desarrollo de nuestra interfaz gráfica en Tkinter; sin embargo, nos confrontó con una omisión fundamental: nos concentramos en construir el juego y dejamos por fuera la esencia del laboratorio, que era utilizar la **Simulación de Monte Carlo** para ejecutar iteraciones masivas, recolectar frecuencias relativas y generar evidencia gráfica de la **Ley de los Grandes Números**.
+> En nuestra primera entrega obtuvimos 52 sobre 100 porque enfocamos todo el esfuerzo en construir la interfaz del juego y omitimos la esencia científica del laboratorio: utilizar el método de Monte Carlo para ejecutar corridas masivas, medir frecuencias relativas y comprobar gráficamente la **Ley de los Grandes Números**.
 > 
-> Lejos de desalentarnos, tomamos con máxima seriedad la oportunidad de resubmisión. Para subsanar esto de raíz, adoptamos de forma estricta el ciclo metodológico **USA, MODIFICA y CREA**:
-> * En **USA**, inspeccionamos el modelo base de Yahtzee y su espacio muestral de 7,776 combinaciones.
-> * En **MODIFICA**, reestructuramos el código con NumPy para permitir muestreos vectorizados de alto rendimiento y parametrizar las 32 máscaras de retención.
-> * Y en **CREA**, construimos un laboratorio estocástico completo que ejecutó 100,000 tiradas individuales y un torneo de 3,000 partidas completas.
+> Asumimos esa retroalimentación para reestructurar el proyecto aplicando rigurosamente el ciclo **USA, MODIFICA y CREA**:
+> * En **USA**, auditamos el código base verificando la paridad exacta de las 13 categorías sobre los 7,776 estados del espacio muestral.
+> * En **MODIFICA**, vectorizamos el motor en NumPy con el generador PCG64, reduciendo el tiempo de cómputo de más de 19 minutos a solo 19 segundos.
+> * Y en **CREA**, diseñamos cuatro experimentos estocásticos masivos con pruebas Chi-Cuadrado, 6 figuras a 300 DPI y un torneo de 3,000 partidas completas.
 > 
-> A continuación, mi compañero Camilo Palacios expondrá la base matemática que sustenta este modelo."
+> Doy paso a Camilo Palacios con la fundamentación matemática."
 
 ---
 
-### Escena 2: Fundamentación Teórica y Formulación Estocástica (2:00 – 4:00)
+### Escena 2: Espacio Muestral Exacto, Ley de los Grandes Números y TLC (2:00 – 4:00)
 **Voz / Pantalla:** Camilo Alberto Palacios Turriago  
-**Recurso Visual:** Fórmulas del Espacio de Probabilidad $(\Omega, \mathcal{F}, P)$, Ecuación de la Ley de los Grandes Números y Teorema del Límite Central.
+**Recurso Visual:** Tabla Combinatoria de $\Omega$ y ecuaciones de LLN, $\chi^2$ y TLC.
 
 > **Camilo:**  
-> "Gracias, Adriana. Para entender por qué la simulación es rigurosa, debemos partir de la verdad matemática fundamental.
+> "Gracias, Adriana. Al lanzar 5 dados equilibrados de 6 caras, el espacio muestral tiene $|\Omega| = 6^5 = 7,776$ microestados equiprobables. Calculamos de forma cerrada los casos favorables exactos de las 13 categorías:
+> * **Yahtzee** tiene 6 casos favorables ($6/7776 = 0.0772\%$); **Póker**, 156 casos ($2.0062\%$); **Full House** puro (un trío y un par distintos), **300 casos** ($300/7776 = 3.8580\%$); **Escalera Grande**, 240 ($3.0864\%$); **Escalera Pequeña**, 1,200 ($15.4321\%$); **Trío**, 1,656 ($21.2963\%$); y cada cara de la **Sección Superior**, $6^5 - 5^5 = 4,651$ casos ($59.8122\%$).
 > 
-> Al lanzar 5 dados estándar de 6 caras, el espacio muestral es $\Omega = \{1, 2, 3, 4, 5, 6\}^5$, con una cardinalidad exacta de $|\Omega| = 6^5 = 7,776$ resultados elementales equiprobables. Mediante combinatoria analítica exacta, dedujimos los casos favorables de cada categoría:
-> * Por ejemplo, para **Yahtzee** (5 dados idénticos), existen únicamente 6 configuraciones favorables entre 7,776, lo que arroja una probabilidad teórica exacta de $P = 6/7776 \approx 0.0772\%$.
-> * Para **Full House**, son 306 combinaciones favorables (3.9352%); para **Escalera Grande**, 240 combinaciones (3.0864%); y para **Escalera Pequeña**, 1,200 combinaciones (15.4321%).
+> Por la **Ley Fuerte de los Grandes Números** de Kolmogorov, la frecuencia relativa acumulada $f_N(A)$ converge casi con seguridad hacia $P(A)$ cuando $N \to \infty$, transitando desde una **fase de calentamiento** volátil hacia un **estado estable**.
 > 
-> ¿Cómo se conecta esto con Monte Carlo? A través de la **Ley de los Grandes Números (LLN)**. Cada lanzamiento se modela con una variable indicadora de Bernoulli $I_A^{(i)}$. La Ley Débil de Khinchin y la Ley Fuerte de Kolmogorov garantizan que la frecuencia relativa muestral $f_N(A) = \frac{1}{N} \sum I_A^{(i)}$ converge casi con seguridad hacia la probabilidad teórica $P(A)$ cuando $N \to \infty$.
-> 
-> Además, por el **Teorema del Límite Central (TLC)**, sabemos exactamente cómo se comporta el error: la varianza del estimador decae como $\text{Var}(f_N) = \frac{p(1-p)}{N}$ y el error estándar decae como $\mathcal{O}(1/\sqrt{N})$. Esto significa que para duplicar la precisión debemos cuadruplicar las muestras.
-> 
-> Ahora, Juan Daniel Pulgarin nos mostrará los resultados cuantitativos obtenidos en las corridas masivas."
+> Y por el **Teorema del Límite Central**, el error estándar decae como $\sigma/\sqrt{N}$, lo que en escala logarítmica doble equivale a una recta de pendiente exacta **$-0.50$**. Además, sometimos el generador a pruebas formales **Chi-Cuadrado ($\chi^2$)** de uniformidad y partición multinomial. Juan Daniel nos presentará ahora la evidencia experimental."
 
 ---
 
-### Escena 3: Evidencia Experimental y Visualizaciones a 300 DPI (4:00 – 6:30)
+### Escena 3: Evidencia Experimental en las 6 Figuras a 300 DPI (4:00 – 6:45)
 **Voz / Pantalla:** Juan Daniel Pulgarin García  
-**Recurso Visual:** Transición por las Figuras 1, 2, 3, 4 y 5 generadas en la carpeta `results/`.
+**Recurso Visual:** Figuras 1 a 6 en `results/`.
 
 > **Juan Daniel:**  
-> "Gracias, Camilo. Entrando de lleno en la evidencia cuantitativa que nos exigió el profesor, diseñamos un pipeline reproducible que generó seis figuras de alta resolución a 300 DPI y tablas exportadas en CSV.
+> "Gracias, Camilo. En la **Figura 1**, simulamos 100,000 lanzamientos evaluando las 13 categorías reales. En la zona ámbar de calentamiento ($N \le 200$), Yahtzee presenta un error relativo del 100%, pero en el estado estable a los 100,000 tiros converge a 78 casos ($0.0780\%$, error relativo de apenas $1.09\%$) y Full House a 3,885 casos ($3.8850\%$, error relativo de $0.70\%$).
 > 
-> En la **Figura 1**, observamos la comprobación directa de la Ley de los Grandes Números para 100,000 tiradas simuladas en escala logarítmica. Para muestras pequeñas de $N < 100$, el error relativo es superior al 100% debido a la alta dispersión. Sin embargo, al cruzar $N = 10,000$ y llegar a $100,000$, las frecuencias relativas colapsan limpiamente dentro de las bandas de confianza del 95%, alcanzando un error relativo inferior al 1.2% frente a la probabilidad analítica.
+> En la **Figura 2**, ejecutamos 200 réplicas independientes por nivel muestral. La regresión lineal log-log arrojó pendientes empíricas de **$-0.474$** ($R^2 = 0.9925$) en Yahtzee y **$-0.477$** ($R^2 = 0.9954$) en Full House, comprobando la ley $\mathcal{O}(1/\sqrt{N})$ del TLC.
 > 
-> En la **Figura 2**, comprobamos empíricamente el Teorema del Límite Central mediante 150 réplicas independientes de Monte Carlo para cada valor de $N$. En escala log-log, la dispersión observada entre réplicas se ajusta con total precisión sobre la recta de pendiente teórica $-0.5$, demostrando la tasa de decaimiento $\mathcal{O}(1/\sqrt{N})$.
+> En la **Figura 3**, validamos las **13 categorías completas**: todas las discrepancias absolutas fueron menores a **0.24 puntos porcentuales**, y las pruebas Chi-Cuadrado confirmaron tanto la uniformidad de los 500,000 dados ($p = 0.739$) como la partición combinatoria de $\Omega$ ($p = 0.973$).
 > 
-> En la **Figura 3**, contrastamos el histograma empírico de las 13 categorías contra la distribución de Laplace, evidenciando discrepancias residuales menores a 0.25 puntos porcentuales.
+> En la **Figura 4**, sobre la mano táctica `[3, 4, 4, 6, 1]` sin comodín `libre`, demostramos que la jugada óptima exacta es **Retener el Par `[4, 4]`** con **EV exacto de 13.56 puntos**. Con $N=10$ simulaciones la IA se equivoca en el **31.0%** de las réplicas por ruido aleatorio, mientras que desde $N \ge 100$ (y con nuestro umbral operativo $N=250$) alcanza el **100% de precisión**.
 > 
-> La **Figura 4** ilustra la toma de decisiones: muestra cómo evoluciona el **Valor Esperado (EV)** de 4 opciones de retención en una mano crítica `[3, 4, 4, 6, 1]`. Con menos de 100 simulaciones, las curvas se cruzan por azar; pero con $N \ge 250$, se estabiliza con certeza que retener el par de 4s es la jugada óptima (EV ≈ 12.6 puntos).
-> 
-> Finalmente, en la **Figura 5**, llevamos a cabo un torneo masivo de **3,000 partidas completas** (39,000 turnos). Los resultados fueron contundentes:
-> * El **Agente Aleatorio** promedió 46.6 puntos.
-> * El **Agente Heurístico Greedy** promedió 140.9 puntos.
-> * Y nuestro **Agente IA Monte Carlo** alcanzó **207.3 puntos**, superando al heurístico en un 47.1% y al aleatorio en más del 340%, con menor varianza relativa y duplicando la tasa de bonificación superior de 35 puntos.
-> 
-> Doy paso a Ruben Jaramillo para compartir nuestra reflexión sobre desaprendizaje y aprendizaje genuino."
+> Finalmente, en las **Figuras 5 y 6**, simulamos **3,000 partidas completas**: el Agente Aleatorio promedió **44.85 puntos**, el Heurístico **140.34 puntos**, y nuestro **Agente IA Monte Carlo alcanzó 217.38 puntos** (+54.9% sobre el Heurístico). La Figura 6 revela el porqué: mientras el Heurístico persigue ciegamente pares y tríos (obteniendo algo más en Póker y Yahtzee aislado, pero destruyendo Escalera Grande a 0.6 puntos), nuestra IA Monte Carlo domina **11 de las 13 categorías** (34.6 puntos en Escalera Grande) y multiplica por **12 veces** la obtención del Bono Superior de +35 puntos (**16.9% vs 1.4%**), generando incluso un segundo pico bimodal sobre los 255 puntos. Doy paso a Ruben."
 
 ---
 
-### Escena 4: Reflexión de Aprendizaje, Desaprendizaje y Cierre (6:30 – 9:00)
+### Escena 4: Desaprendizaje, Aprendizaje Genuino y Cierre en Colab (6:45 – 9:00)
 **Voz / Pantalla:** Ruben Dario Jaramillo Cervantes  
-**Recurso Visual:** Diapositiva con el Cuadro de Aprendizaje / Desaprendizaje + Cuaderno de Google Colab ejecutado en vivo.
+**Recurso Visual:** Cuaderno `Simulacion_Yahtzee_Montecarlo_Colab.ipynb` pre-ejecutado.
 
 > **Ruben:**  
-> "Muchas gracias, Juan Daniel. Llegamos a la parte más formativa y enriquecedora de este trabajo: la reflexión sobre aquello que tuvimos que **desaprender** para construir un **aprendizaje genuino**, tal como nos lo sugirió el profesor Julian Loaiza.
+> "Muchas gracias, Juan Daniel. Siguiendo la invitación formativa del profesor Julian Loaiza, reflexionamos en equipo sobre lo que tuvimos que **desaprender**:
+> 1. **Desaprendimos el sesgo del videojuego:** Entendimos que en ingeniería de simulación el software no es el producto final, sino el instrumento de laboratorio para extraer evidencia estocástica.
+> 2. **Desaprendimos la intuición de muestras pequeñas y reglas codiciosas:** Vimos con datos propios cómo $N=10$ falla el 31% de las veces y cómo una heurística intuitiva sacrifica casi 77 puntos por partida frente al Valor Esperado.
+> 3. **Desaprendimos la validación superficial:** Auditamos cada tabla, gráfica y prueba unitaria (12 de 12 aprobadas) para garantizar trazabilidad matemática total.
 > 
-> En nuestro equipo tuvimos que desaprender tres premisas muy arraigadas:
-> 1. **Primero, desaprendimos la 'ilusión del videojuego':** Como estudiantes de ingeniería informática solemos pensar que un proyecto está listo cuando la interfaz se ve bien y el juego es divertido. Desaprendimos ese sesgo al comprender que en la ingeniería de simulación el juego es solo el dominio del problema; el núcleo verdadero es el modelado estocástico, el muestreo masivo y la inferencia estadística.
-> 2. **Segundo, desaprendimos la falacia de la muestra pequeña:** Antes creíamos intuitivamente que 20 o 30 corridas bastaban para ver si algo funcionaba. La evidencia de la Figura 4 nos enseñó que la varianza en muestras pequeñas engaña y produce decisiones erráticas.
-> 3. **Tercero, desaprendimos las conclusiones estáticas:** Abandonamos las afirmaciones vagas para sustentar cada conclusión con medias, desviaciones estándar, intervalos de confianza y gráficas de convergencia.
+> ¿Qué **aprendizaje genuino** construimos? Vivenciamos la transición del caos transitorio al orden asintótico de la Ley de los Grandes Números, medimos el costo cuadrático de reducir el error con el TLC y diseñamos un agente inteligente capaz de optimizar decisiones bajo incertidumbre real.
 > 
-> ¿Y qué aprendimos genuinamente?
-> * Aprendimos que la simulación es un **laboratorio experimental de ciencia de datos**.
-> * Comprendimos cómo la certidumbre matemática de la **Ley de los Grandes Números** emerge del caos aparente gracias a la agregación estocástica.
-> * Dominamos el **Valor Esperado** como criterio riguroso para la toma de decisiones bajo incertidumbre en espacios NP-difíciles.
-> 
-> Nuestro proyecto entrega un ecosistema reproducible completo: el paquete en Python, la suite de pruebas unitarias con 100% de éxito, los conjuntos de datos en CSV, el informe técnico oficial de 24 páginas en Word con formato institucional y un cuaderno en Google Colab ejecutable en la nube con un solo clic.
-> 
-> Agradecemos al profesor Julian Andres Loaiza por la exigencia y la retroalimentación que nos impulsó a transformar una simple aplicación en una verdadera investigación aplicada de ingeniería estocástica. ¡Muchas gracias!"
-
----
-
-### Consejos Técnicos para la Grabación del Video
-1. **Resolución y Audio:** Grabar a 1080p con micrófono claro sin eco (usar OBS Studio, Teams o Zoom).
-2. **Distribución de Roles:** Cada integrante interviene aproximadamente 2 minutos, manteniendo fluidez en las transiciones.
-3. **Apoyo Visual:** Compartir pantalla alternando entre las diapositivas de presentación, las 6 figuras de la carpeta `results/` y el cuaderno de Google Colab en vivo.
+> Entregamos el repositorio completo, los datos CSV, el informe técnico en Word y este cuaderno de Google Colab 100% autocontenido y pre-ejecutado. ¡Muchas gracias, profesor, por impulsarnos a dar este salto de calidad científica!"

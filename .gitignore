@@ -8,6 +8,12 @@ venv/
 .venv/
 env/
 
-# IDEs
+# IDEs y temporales de Office
 .vscode/
 .idea/
+~$*.docx
+
+# Material de referencia local de clase (conservado en disco, excluido del repo)
+AAA 26 de Octubre.txt
+Clase 29 de Octubre.txt
+Simulación (Julian Andres Loaiza) - PREICA2602B020045.pdf

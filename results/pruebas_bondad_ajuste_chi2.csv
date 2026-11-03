@@ -1,0 +1,3 @@
+prueba,n_muestral,grados_libertad,estadistico_chi2,valor_critico_alfa_005,p_valor,conclusion
+Uniformidad Caras del Dado {1..6},500000,5,2.74912,11.070497693516351,0.7385961082614194,No se rechaza H0 (Uniformidad validada)
+Partición Combinatoria de Ω (7 Clases Excluyentes),100000,6,1.2739759999999802,12.591587243743977,0.9730732871083506,No se rechaza H0 (Ajuste a Laplace validado)

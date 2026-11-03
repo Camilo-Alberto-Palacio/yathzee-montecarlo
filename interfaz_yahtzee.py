@@ -22,6 +22,8 @@ Cómo se juega:
 =============================================================================
 """
 
+import csv
+import os
 import random
 import tkinter as tk
 
@@ -305,11 +307,11 @@ class JuegoYahtzee:
                          self.mostrar_estadisticas_montecarlo, ancho=22).pack(pady=(8, 0))
 
     def mostrar_estadisticas_montecarlo(self):
-        """Muestra una ventana modal con el sustento cuantitativo de la Ley de los Grandes Números."""
+        """Muestra una ventana modal con los datos reales exportados por main_experimentos.py."""
         top = tk.Toplevel(self.ventana)
         top.title("Evidencia Estadística y Ley de los Grandes Números")
         top.configure(bg="#f8fafc")
-        top.geometry("660x540")
+        top.geometry("700x560")
         top.resizable(False, False)
 
         tk.Label(top, text="📊  Evidencia Cuantitativa de Monte Carlo (Grupo 25)",
@@ -318,23 +320,76 @@ class JuegoYahtzee:
         frame = tk.Frame(top, bg="#f8fafc", padx=15, pady=10)
         frame.pack(fill="both", expand=True)
 
-        txt = (
-            "1. LEY DE LOS GRANDES NÚMEROS (100,000 Tiradas Iniciales):\n"
-            "   • Yahtzee (5 iguales): P Teórica = 0.0772%  |  f_100k = 0.0760%  (Error: 0.0012%)\n"
-            "   • Póker (4 iguales):   P Teórica = 2.0062%  |  f_100k = 2.0310%  (Error: 0.0248%)\n"
-            "   • Full House:          P Teórica = 3.9352%  |  f_100k = 3.9450%  (Error: 0.0098%)\n"
-            "   • Escalera Grande:     P Teórica = 3.0864%  |  f_100k = 3.0780%  (Error: 0.0084%)\n"
-            "   • Escalera Pequeña:    P Teórica = 15.4321% |  f_100k = 15.3960% (Error: 0.0361%)\n"
-            "   • Trío (3 iguales):    P Teórica = 21.2963% |  f_100k = 21.3650% (Error: 0.0687%)\n\n"
-            "2. TORNEO MASIVO (3,000 Partidas Completas - 13 Rondas):\n"
-            "   • Agente Aleatorio (Ciego):       46.6 pts (±19.2) | Bono Sup: 0.0%\n"
-            "   • Agente Heurístico (Greedy):    140.9 pts (±36.6) | Bono Sup: 1.7%\n"
-            "   • Agente IA Monte Carlo (EV):    207.3 pts (±33.3) | Bono Sup: 2.1%\n"
-            "     --> La IA Monte Carlo supera en +47.1% al Heurístico y +344.6% al Aleatorio.\n\n"
-            "3. TEOREMA DEL LÍMITE CENTRAL (TLC):\n"
-            "   • Error estándar: SE ~ O(1/√N) con pendiente empírica exacta de -0.5 en log-log.\n"
-            "   • Con N ≥ 250 sims por máscara, se eliminan inversiones de rango por azar.\n"
-        )
+        base_dir = os.path.dirname(os.path.abspath(__file__))
+        csv_prob = os.path.join(base_dir, "results", "probabilidades_teoricas_vs_empiricas.csv")
+        csv_res = os.path.join(base_dir, "results", "resumen_estadistico_estrategias.csv")
+        csv_tlc = os.path.join(base_dir, "results", "decaimiento_varianza_tlc.csv")
+
+        lineas = ["1. LEY DE LOS GRANDES NÚMEROS (100,000 Tiradas Iniciales - Semilla 42):"]
+        claves_mostrar = [
+            ("yahtzee", "Yahtzee (5 iguales)"),
+            ("poker", "Póker (≥4 iguales)"),
+            ("full", "Full House (3+2)"),
+            ("escalera_larga", "Escalera Grande"),
+            ("escalera_corta", "Escalera Pequeña"),
+            ("trio", "Trío (≥3 iguales)"),
+            ("seises", "Seises (≥1 seis)"),
+        ]
+
+        if os.path.exists(csv_prob):
+            with open(csv_prob, mode="r", encoding="utf-8") as f:
+                filas_p = {r["categoria_clave"]: r for r in csv.DictReader(f)}
+            for clave, etiqueta in claves_mostrar:
+                if clave in filas_p:
+                    r = filas_p[clave]
+                    pt = float(r["porcentaje_teorico"])
+                    fe = float(r["porcentaje_empirico"])
+                    er = abs(fe - pt)
+                    lineas.append(
+                        f"   • {etiqueta:<20}: P Teórica = {pt:7.4f}% | f_100k = {fe:7.4f}% (|Δ|={er:.4f}%)"
+                    )
+        else:
+            lineas.append("   • Ejecuta 'python main_experimentos.py' para cargar resultados CSV.")
+
+        lineas.append("\n2. TORNEO MASIVO (3,000 Partidas Completas - 13 Rondas Oficiales):")
+        if os.path.exists(csv_res):
+            with open(csv_res, mode="r", encoding="utf-8") as f:
+                filas_r = {r["Estrategia"].lower(): r for r in csv.DictReader(f)}
+            m_ale = float(filas_r["aleatorio"]["Puntaje Medio"])
+            s_ale = float(filas_r["aleatorio"]["Desv. Estándar"])
+            b_ale = filas_r["aleatorio"]["Tasa Bono (+35 pts)"]
+
+            m_heu = float(filas_r["heuristico"]["Puntaje Medio"])
+            s_heu = float(filas_r["heuristico"]["Desv. Estándar"])
+            b_heu = filas_r["heuristico"]["Tasa Bono (+35 pts)"]
+
+            m_mc = float(filas_r["montecarlo"]["Puntaje Medio"])
+            s_mc = float(filas_r["montecarlo"]["Desv. Estándar"])
+            b_mc = filas_r["montecarlo"]["Tasa Bono (+35 pts)"]
+
+            mejora_heu = ((m_mc - m_heu) / m_heu) * 100.0
+            mejora_ale = ((m_mc - m_ale) / m_ale) * 100.0
+            lineas.extend([
+                f"   • Agente Aleatorio (Ciego):       {m_ale:5.1f} pts (±{s_ale:4.1f}) | Bono Sup: {b_ale}",
+                f"   • Agente Heurístico (Greedy):     {m_heu:5.1f} pts (±{s_heu:4.1f}) | Bono Sup: {b_heu}",
+                f"   • Agente IA Monte Carlo (EV):     {m_mc:5.1f} pts (±{s_mc:4.1f}) | Bono Sup: {b_mc}",
+                f"     --> IA Monte Carlo supera en +{mejora_heu:.1f}% al Heurístico y +{mejora_ale:.1f}% al Aleatorio.",
+            ])
+
+        pendiente_txt = "-0.50"
+        if os.path.exists(csv_tlc):
+            with open(csv_tlc, mode="r", encoding="utf-8") as f:
+                primera_tlc = next(csv.DictReader(f), None)
+                if primera_tlc and "pendiente_ols_full" in primera_tlc:
+                    pendiente_txt = f"{float(primera_tlc['pendiente_ols_full']):.3f}"
+
+        lineas.extend([
+            "\n3. TEOREMA DEL LÍMITE CENTRAL (TLC) Y ESTABILIZACIÓN EV:",
+            f"   • Error estándar: SE ~ O(1/√N) con pendiente OLS log-log m = {pendiente_txt} (teórica -0.500).",
+            "   • Con N ≥ 250 sims por máscara se estabiliza la jerarquía óptima de decisiones.",
+        ])
+
+        txt = "\n".join(lineas)
         lbl = tk.Label(frame, text=txt, font=("Consolas", 9), justify="left",
                        bg="#ffffff", fg="#1e293b", relief="solid", bd=1, padx=10, pady=10)
         lbl.pack(fill="both", expand=True)
