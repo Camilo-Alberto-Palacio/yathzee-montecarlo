@@ -88,7 +88,6 @@ $$P\left( \lim_{N \to \infty} f_N(A) = P(A) \right) = 1, \qquad \text{SE}(N) = \
 ├── create_colab_notebook.py                   # Constructor y ejecutor del cuaderno Colab
 ├── Simulacion_Yahtzee_Montecarlo_Colab.ipynb  # Cuaderno 100% autocontenido y pre-ejecutado
 ├── Evidencia de Aprendizaje 1 - Módulo 1. Actividad didáctica 1 - Simulación Montecarlo Yahtzee.docx
-├── GUION_VIDEO_SUSTENTACION.md                # Guion estructurado para la sustentación oral
 ├── interfaz_yahtzee.py                        # Interfaz Tkinter conectada dinámicamente a CSVs
 ├── yahtzee_montecarlo.py                      # Motor didáctico base en consola
 ├── prueba.py                                  # Script original preservado
